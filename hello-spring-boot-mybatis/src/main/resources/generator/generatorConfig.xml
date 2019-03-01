@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+
+<generatorConfiguration>
+    <!-- 引入配置文件 -->
+    <properties resource="jdbc.properties"/>
+
+    <!-- 一个数据库连接一个context -->
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <property name="beginningDelimiter" value="~"></property>
+        <property name="endingDelimiter" value="~"></property>
+
+        <!-- jdbc连接 -->
+        <jdbcConnection driverClass="${jdbc.driver}"
+                        connectionURL="${jdbc.url}" userId="${jdbc.username}"
+                        password="${jdbc.password}" />
+
+        <!-- 实体类路径 -->
+        <javaModelGenerator targetPackage="com.funti.hello.spring.boot.mybatis.entity" targetProject="src/main/java"></javaModelGenerator>
+
+        <!-- XML路径 -->
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources"></sqlMapGenerator>
+
+        <!-- Dao路径,即生成map.xml对应client -->
+        <javaClientGenerator targetPackage="com.funti.hello.spring.boot.mybatis.dao"
+                             targetProject="src/main/java"
+                             type="XMLMAPPER" >
+            <!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
+            <property name="enableSubPackages" value="false" />
+        </javaClientGenerator>
+
+        <!-- 配置需要生成的表信息，%代表所有 -->
+        <table tableName="%">
+            <!-- 配置mysql -->
+            <generatedKey column="id" sqlStatement="Mysql" identity="true" ></generatedKey>
+        </table>
+    </context>
+</generatorConfiguration>
